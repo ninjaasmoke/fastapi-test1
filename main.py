@@ -15,7 +15,7 @@ def read_item(item_id: int, q: Optional[str] = None):
 
 class Ticket(BaseModel):
     workflow_id: str
-    data: Optional[Dict[str, Optional[str]]]
+    data: Optional[Any]
 
 @app.post("/create", response_model=Dict)
 async def create(
