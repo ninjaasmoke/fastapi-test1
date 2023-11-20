@@ -1,6 +1,6 @@
-from typing import Optional
+from typing import Dict, Annotated
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 
 app = FastAPI()
 
@@ -12,3 +12,11 @@ async def root():
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
+
+@app.post("/create", response_model=Dict)
+async def create(
+    workflow_id: str,
+    ticket: Dict,
+    x_sero_api_token: Annotated[str, Header()] = None,
+) -> Dict:
+    return ticket
