@@ -14,16 +14,12 @@ async def root():
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
-class Ticket(BaseModel):
-    workflow_id: str
-    data: Optional[Any]
-
 @app.post("/create", response_model=Dict)
 async def create(
-    ticket: Any,
+    ticket: Optional[Any],
     x_sero_api_token: str = Header(None),
 ) -> Dict:
-    if isinstance(ticket, str):
-        data_dict = json.loads(ticket)
-        return {"workflow_id": data_dict.data.workflow_id, "data": data_dict.data}
-    return {"workflow_id": ticket.workflow_id, "data": ticket.data}
+    if ticket is not None and isinstance(ticket, str):
+        ticket_dict = json.loads(ticket)
+        return {"data": data_dict.data}
+    return {"data": ticket.data}
