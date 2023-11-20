@@ -21,5 +21,5 @@ async def create(
 ) -> Dict:
     if ticket is not None and isinstance(ticket, str):
         ticket_dict = json.loads(ticket)
-        return {"data": ticket_dict.data}
-    return {"data": ticket.data}
+        return {"data": ticket_dict}
+    return {"data": ticket}
