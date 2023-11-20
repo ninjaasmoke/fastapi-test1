@@ -23,7 +23,7 @@ async def create(
     ticket: Any,
     x_sero_api_token: str = Header(None),
 ) -> Dict:
-    if isinstance(ticket.data, str):
+    if isinstance(ticket, str):
         data_dict = json.loads(ticket)
         return {"workflow_id": data_dict.data.workflow_id, "data": data_dict.data}
     return {"workflow_id": ticket.workflow_id, "data": ticket.data}
