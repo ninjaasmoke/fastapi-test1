@@ -1,4 +1,4 @@
-from typing import Dict, Annotated
+from typing import Dict, Annotated, Optional
 
 from fastapi import FastAPI, Header
 
