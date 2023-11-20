@@ -20,10 +20,10 @@ class Ticket(BaseModel):
 
 @app.post("/create", response_model=Dict)
 async def create(
-    ticket: Ticket,
+    ticket: Any,
     x_sero_api_token: str = Header(None),
 ) -> Dict:
     if isinstance(ticket.data, str):
-        data_dict = json.loads(ticket.data)
-        return {"workflow_id": data_dict.workflow_id, "data": data_dict.data}
+        data_dict = json.loads(ticket)
+        return {"workflow_id": data_dict.data.workflow_id, "data": data_dict.data}
     return {"workflow_id": ticket.workflow_id, "data": ticket.data}
