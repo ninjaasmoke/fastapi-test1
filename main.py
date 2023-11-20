@@ -1,6 +1,6 @@
 from typing import Dict, Annotated, Optional, Any
 from pydantic import BaseModel, Extra
-from fastapi import FastAPI, Header
+from fastapi import FastAPI, Header, Body
 import json
 
 app = FastAPI()
@@ -16,7 +16,7 @@ def read_item(item_id: int, q: Optional[str] = None):
 
 @app.post("/create", response_model=Dict)
 async def create(
-    ticket: Optional[Any],
+    ticket: Optional[Any] = Body(None),
     x_sero_api_token: str = Header(None),
 ) -> Dict:
     if ticket is not None and isinstance(ticket, str):
