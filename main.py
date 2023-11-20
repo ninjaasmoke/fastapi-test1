@@ -1,6 +1,7 @@
 from typing import Dict, Annotated, Optional, Any
 from pydantic import BaseModel, Extra
 from fastapi import FastAPI, Header
+import json
 
 app = FastAPI()
 
@@ -22,4 +23,7 @@ async def create(
     ticket: Ticket,
     x_sero_api_token: str = Header(None),
 ) -> Dict:
+    if isinstance(ticket.data, str):
+        data_dict = json.loads(ticket.data)
+        return {"workflow_id": ticket.workflow_id, "data": ticket.data}
     return {"workflow_id": ticket.workflow_id, "data": ticket.data}
